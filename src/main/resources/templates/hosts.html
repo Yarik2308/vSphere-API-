@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Hosts</title>
+    <link rel="stylesheet" th:href="@{/css/objects.css}" type="text/css">
+
+</head>
+<body>
+    <div class="wrapper">
+        <table class="table">
+            <tr>
+                <th>IP</th>
+                <th>Full Name</th>
+                <th>State</th>
+                <th>Model</th>
+                <th>CPU Usage</th>
+                <th>CPU MHz</th>
+                <th>num CPU Cores</th>
+                <th>CPU Capacity</th>
+                <th>num CPU threads</th>
+                <th>CPU Model</th>
+                <th>Memory Size</th>
+                <th>Memory Usage</th>
+                <th>num NICs</th>
+                <th>up Time</th>
+                <th>capacity</th>
+                <th>Free space</th>
+                <th>ClusterName</th>
+            </tr>
+            <tr th:each="host : ${hosts}">
+                <td ><a th:text="${host.name}" th:href="@{'/hosts/' + ${host.name}}"></a></td>
+                <td th:text="${host.fullName}"></td>
+                <td th:text="${host.connectionState}"></td>
+                <td th:text="${host.model}"></td>
+                <td th:text="${host.cpuUsage}"></td>
+                <td th:text="${host.cpuMhz}"></td>
+                <td th:text="${host.numCpuCores}"></td>
+                <td th:text="${host.cpuMhz}*${host.numCpuCores}"></td>
+                <td th:text="${host.numCpuThreads}"></td>
+                <td th:text="${host.cpuModel}"></td>
+                <td th:text="${host.memorySize}"></td>
+                <td th:text="${host.memoryUsage}"></td>
+                <td th:text="${host.numNICs}"></td>
+                <td th:text="${host.upTime}"></td>
+                <td th:text="${host.capacity}"></td>
+                <td th:text="${host.freeSpace}"></td>
+                <td><a th:text="${host.clusterName}" th:href="@{'/clusters/' + ${host.clusterName}}"></a></td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>

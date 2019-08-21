@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>VirtualMachines</title>
+    <link rel="stylesheet" th:href="@{/css/objects.css}" type="text/css">
+
+</head>
+<body>
+    <div class="wrapper">
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>guestOs</th>
+                <th>vmWareToolsRunningStatus</th>
+                <th>vmWareToolsVersion</th>
+                <th>dnsName</th>
+                <th>ipAddresses</th>
+                <th>CPU Usage</th>
+                <th>num CPU Cores</th>
+                <th>CPU Reservation</th>
+                <th>static CPU Entitlement</th>
+                <th>Memory Usage</th>
+                <th>Memory Size</th>
+                <th>static Memory Entitlement</th>
+                <th>memory Reservation</th>
+                <th>capacity</th>
+                <th>Free space</th>
+                <th>Host</th>
+                <th>ClusterName</th>
+            </tr>
+            <tr th:each="virtualMachine : ${virtualMachines}">
+                <td ><a th:text="${virtualMachine.name}" th:href="@{'/virtualMachines/' + ${virtualMachine.name}}"></a></td>
+                <td th:text="${virtualMachine.guestOs}"></td>
+                <td th:text="${virtualMachine.vmWareToolsRunningStatus}"></td>
+                <td th:text="${virtualMachine.vmWareToolsVersion}"></td>
+                <td th:text="${virtualMachine.dnsName}"></td>
+                <td th:text="${virtualMachine.ipAddresses}"></td>
+                <td th:text="${virtualMachine.cpuUsage}"></td>
+                <td th:text="${virtualMachine.numCpuCores}"></td>
+                <td th:text="${virtualMachine.cpuReservation}"></td>
+                <td th:text="${virtualMachine.staticCpuEntitlement}"></td>
+                <td th:text="${virtualMachine.memoryUsage}"></td>
+                <td th:text="${virtualMachine.memorySize}"></td>
+                <td th:text="${virtualMachine.staticMemoryEntitlement}"></td>
+                <td th:text="${virtualMachine.memoryReservation}"></td>
+                <td th:text="${virtualMachine.uncommitted}+${virtualMachine.unshared}"></td>
+                <td th:text="${virtualMachine.uncommitted}+${virtualMachine.unshared}-${virtualMachine.committed}"></td>
+                <td><a th:text="${virtualMachine.hostName}" th:href="@{'/hosts/' +  ${virtualMachine.hostName}}"></a></td>
+                <td><a th:text="${virtualMachine.clusterName}" th:href="@{'/clusters/' +  ${virtualMachine.clusterName}}"></a></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

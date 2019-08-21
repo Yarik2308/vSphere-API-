@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Alarms</title>
+    <link rel="stylesheet" th:href="@{/css/objects.css}" type="text/css">
+
+</head>
+<body>
+<div class="wrapper">
+    <table class="table">
+        <tr>
+            <th>entity</th>
+            <th>overallStatus</th>
+            <th>time</th>
+        </tr>
+        <tr th:each="alarm : ${alarms}">
+            <td><a th:text="${alarm.object.name}" th:href="@{'/' + ${alarm.object.object} + '/' + ${alarm.object.name}}"></td>
+            <td th:text="${alarm.overallStatus}"></td>
+            <td th:text="${alarm.time}"></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

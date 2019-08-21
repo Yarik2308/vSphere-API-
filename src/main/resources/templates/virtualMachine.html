@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>virtualMachine</title>
+    <link rel="stylesheet" th:href="@{/css/object.css}" type="text/css">
+    <script th:src="@{/js/script.js}" type="text/javascript"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="left-container">
+                    <p><a th:href="@{'/virtualMachines/'}">To virtualMachines list</a></p>
+                    <p>Name: <span th:text="${virtualMachine.name}"></span></p>
+                    <p>guestOs: <span th:text="${virtualMachine.guestOs}"></span></p>
+                    <p>vmWareToolsRunningStatus: <span th:text="${virtualMachine.vmWareToolsRunningStatus}"></span></p>
+                    <p>vmWareToolsVersion: <span th:text="${virtualMachine.vmWareToolsVersion}"></span></p>
+                    <p>dnsName: <span th:text="${virtualMachine.dnsName}"></span></p>
+                    <p>ipAddresses: <span th:text="${virtualMachine.ipAddresses}"></span></p>
+                    <p>ClusterName: <a th:text="${virtualMachine.clusterName}" th:href="@{'/clusters/' + ${virtualMachine.clusterName}}"></a></p>
+                    <p>HostName: <a th:text="${virtualMachine.hostName}" th:href="@{'/hosts/' + ${virtualMachine.hostName}}"></a></p>
+                </div>
+                <div class="right-container">
+                    <div class="cpu">
+                        <div class="row">
+                            <div class="info">
+                                <p>CPU Usage: <span id="usage" th:text="${virtualMachine.cpuUsage}"></span> MHz</p>
+                                <p>CPU Entitlement: <span id="capacity" th:text="${virtualMachine.staticCpuEntitlement}"></span> MHz</p>
+                                <div id="legend-cpu"></div>
+                            </div>
+                            <div class="canvas">
+                                <canvas id="canvas-cpu"></canvas>
+                            </div>
+                        </div>
+                        <script>
+                            var canvas = document.getElementById("canvas-cpu");
+                            canvas.width = 150;
+                            canvas.height = 150;
+                            var legend = document.getElementById("legend-cpu");
+                            var data = {
+                                "CPU Usage": [[${virtualMachine.cpuUsage}]],
+                                "CPU Free": [[${virtualMachine.staticCpuEntitlement}]] - [[${virtualMachine.cpuUsage}]]
+                            };
+
+                            var myPieChart = new PieChart(
+                                {
+                                    canvas: canvas,
+                                    data: data,
+                                    colors: ["#fde23e", "#937e88"],
+                                    legend: legend
+                                }
+                            );
+                            myPieChart.draw();
+                        </script>
+                    </div>
+                    <div class="memory">
+                        <div class="row">
+                            <div class="info">
+                                <p>Memory Usage: <span th:text="${virtualMachine.memoryUsage}"></span> MB</p>
+                                <p>Memory Size: <span th:text="${virtualMachine.memorySize}"></span> MB</p>
+                                <div id="legend-memory"></div>
+                            </div>
+                            <div class="canvas">
+                                <canvas id="canvas-memory"></canvas>
+                            </div>
+                            <script>
+                                var canvas = document.getElementById("canvas-memory");
+                                canvas.width = 150;
+                                canvas.height = 150;
+                                var legend = document.getElementById("legend-memory");
+                                var data = {
+                                    "Memory Usage": [[${virtualMachine.memoryUsage}]],
+                                    "Memory Free": ([[${virtualMachine.memorySize}]]) - [[${virtualMachine.memoryUsage}]]
+                                };
+
+                                var myPieChart = new PieChart(
+                                    {
+                                        canvas: canvas,
+                                        data: data,
+                                        colors: ["#fde23e", "#937e88"],
+                                        legend: legend
+                                    }
+                                );
+                                myPieChart.draw();
+                            </script>
+                        </div>
+                    </div>
+                    <div class="storage">
+                        <div class="row">
+                            <div class="info">
+                                <p>Free Space: <span th:text="${virtualMachine.uncommitted}+${virtualMachine.unshared}-${virtualMachine.committed}"></span> Bytes</p>
+                                <p>Capacity: <span th:text="${virtualMachine.uncommitted}+${virtualMachine.unshared}"></span> Bytes</p>
+                                <div id="legend-storage"></div>
+                            </div>
+                            <div class="canvas">
+                                <canvas id="canvas-storage"></canvas>
+                            </div>
+                            <script>
+                                var canvas = document.getElementById("canvas-storage");
+                                canvas.width = 150;
+                                canvas.height = 150;
+                                var legend = document.getElementById("legend-storage");
+                                var data = {
+                                    "Storage Usage": [[${virtualMachine.committed}]],
+                                    "Storage Free": [[${virtualMachine.uncommitted}]] + [[${virtualMachine.unshared}]]-[[${virtualMachine.committed}]]
+                                };
+
+                                var myPieChart = new PieChart(
+                                    {
+                                        canvas: canvas,
+                                        data: data,
+                                        colors: ["#fde23e", "#937e88"],
+                                        legend: legend
+                                    }
+                                );
+                                myPieChart.draw();
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div th:if="${!virtualMachine.dataStoresList.isEmpty()}" class="container dataStores">
+            <p><a th:href="@{'/dataStores/'}">DataStores:</a></p>
+            <table class="table">
+                <tr>
+                    <th>Name</th>
+                    <th>URL</th>
+                    <th>Type</th>
+                    <th>Capacity</th>
+                    <th>Free Space</th>
+                </tr>
+                <tr th:each="dataStore : ${virtualMachine.dataStoresList}">
+                    <td><a th:text="${dataStore.name}" th:href="@{'/dataStores/' + ${dataStore.name}}"></td>
+                    <td th:text="${dataStore.url}"></td>
+                    <td th:text="${dataStore.type}"></td>
+                    <td th:text="${dataStore.capacity}"></td>
+                    <td th:text="${dataStore.freeSpace}"></td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${!virtualMachine.alarmsList.isEmpty()}" class="container alarms">
+            <p><a th:href="@{'/alarms/'}">Alarms:</a></p>
+            <table class="table">
+                <tr>
+                    <th>Entity</th>
+                    <th>Status</th>
+                    <th>Time</th>
+                </tr>
+                <tr th:each="alarm : ${virtualMachine.alarmsList}">
+                    <td><a th:text="${alarm.object.name}" th:href="@{'/' + ${alarm.object.object} + '/' + ${alarm.object.name}}"></td>
+                    <td th:text="${alarm.overallStatus}"></td>
+                    <td th:text="${alarm.time}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

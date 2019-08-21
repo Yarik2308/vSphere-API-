@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>DataStores</title>
+    <link rel="stylesheet" th:href="@{/css/objects.css}" type="text/css">
+
+</head>
+<body>
+<div class="wrapper">
+    <table class="table">
+        <tr>
+            <th>name</th>
+            <th>url</th>
+            <th>type</th>
+            <th>capacity</th>
+            <th>freeSpace</th>
+            <th>clusterName</th>
+            <th>hostNamesList</th>
+        </tr>
+        <tr th:each="dataStore : ${dataStores}">
+            <td ><a th:text="${dataStore.name}" th:href="@{'/dataStores/' + ${dataStore.name}}"></a></td>
+            <td th:text="${dataStore.url}"></td>
+            <td th:text="${dataStore.type}"></td>
+            <td th:text="${dataStore.capacity}"></td>
+            <td th:text="${dataStore.freeSpace}"></td>
+            <td><a th:text="${dataStore.clusterName}" th:href="@{'/clusters/' + ${dataStore.clusterName}}"></a></td>
+            <td>
+                <p th:each="host : ${dataStore.hostsList}">
+                    <a th:text="${host.name}" th:href="@{'/hosts/' + ${host.name}}"></a>
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

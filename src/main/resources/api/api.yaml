@@ -1,0 +1,690 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "vSpherte"
+schemes:
+  - http
+produces:
+  - application/json
+paths:
+  #
+  # Cluster
+  #
+  /clusters:
+    get:
+      summary: Retrive Clasters list
+      tags:
+        - Cluster
+      responses:
+        '200':
+          description: An array of founded Clusters
+          schema:
+            $ref: '#/definitions/Clusters'
+        '403':
+          description: Permission denied
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: Clusters where not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /clusters/{clusterName}:
+    parameters:
+      - name: clusterName
+        in: path
+        required: true
+        description: Cluster Name
+        type: string
+    get:
+      summary: Retrive Claster with a specified name
+      tags:
+        - Cluster
+      responses:
+        '200':
+          description: Cluster with specific name
+          schema:
+            $ref: '#/definitions/Cluster'
+        '403':
+          description: Permission denied
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: Cluster was not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  #
+  #Host
+  #
+  /hosts:
+    get:
+      summary: Retrive Hosts list.
+      tags:
+        - Host
+      responses:
+        '200':
+          description: An array of founded Hosts
+          schema:
+            $ref: '#/definitions/Hosts'
+        '403':
+          description: Permission denied
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: Hosts where not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /hosts/withDataStores:
+    get:
+      summary: Retrive Hosts list with DataStores
+      tags:
+        - Host
+      responses:
+        '200':
+          description: An array of founded Hosts
+          schema:
+            $ref: '#/definitions/Hosts'
+        '403':
+          description: Permission denied
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: Hosts where not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /hosts/withVirtualMachines:
+    get:
+      summary: Retrive Hosts list with VirtualMachines
+      tags:
+        - Host
+      responses:
+        '200':
+          description: An array of founded Hosts
+          schema:
+            $ref: '#/definitions/Hosts'
+        '403':
+          description: Permission denied
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: Hosts where not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /hosts/withVirtualMachinesAndDataStores:
+    get:
+      summary: Retrive Hosts list with Virtual Machines and DataStores
+      tags:
+        - Host
+      responses:
+        '200':
+          description: An array of founded Hosts
+          schema:
+            $ref: '#/definitions/Hosts'
+        '403':
+          description: Permission denied
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: Hosts where not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /hosts/{hostName}:
+    parameters:
+      - name: hostName
+        in: path
+        required: true
+        description: Host Name
+        type: string
+    get:
+      summary: Retrive Host with a specified name
+      tags:
+        - Host
+      responses:
+        '200':
+          description: Host with specific name
+          schema:
+            $ref: '#/definitions/Host'
+        '403':
+          description: Permission denied
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: Host was not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  #
+  # VirtualMachine
+  #
+  /virtualMachines:
+    get:
+      summary: Retrive VirtualMachine list
+      tags:
+        - VirtualMachine
+      responses:
+        '200':
+          description: An array of founded VirtualMachines
+          schema:
+            $ref: '#/definitions/VirtualMachines'
+        '403':
+          description: Permission denied
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: VirtualMachines where not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /virtualMachines/withDataStores:
+    get:
+      summary: Retrive VirtualMachine list with DataStores
+      tags:
+        - VirtualMachine
+      responses:
+        '200':
+          description: An array of founded VirtualMachines
+          schema:
+            $ref: '#/definitions/VirtualMachines'
+        '403':
+          description: Permission denied
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: VirtualMachines where not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /virtualMachines/withHostsAndDataStores:
+    get:
+      summary: Retrive VirtualMachine list with Hosts and DataStores
+      tags:
+        - VirtualMachine
+      responses:
+        '200':
+          description: An array of founded VirtualMachines
+          schema:
+            $ref: '#/definitions/VirtualMachines'
+        '403':
+          description: Permission denied
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: VirtualMachines where not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /virtualMachines/{virtualMachineName}:
+    parameters:
+      - name: virtualMachineName
+        in: path
+        required: true
+        description: VirtualMachine name
+        type: string
+    get:
+      summary: Retrive VirtualMachine with a specified name
+      tags:
+        - VirtualMachine
+      responses:
+        '200':
+          description: VirtualMachine with specific name
+          schema:
+            $ref: '#/definitions/VirtualMachine'
+        '403':
+          description: Permission denied
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: VirtualMachine wase not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+  #
+  # DataStores
+  #
+  /dataStores:
+    get:
+      summary: Retrive DataStores list
+      tags:
+        - DataStore
+      responses:
+        '200':
+          description: An array of founded DataStore
+          schema:
+            $ref: '#/definitions/DataStores'
+        '403':
+          description: Permission denied
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: DataStores where not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /dataStores/withVirtualMachines:
+    get:
+      summary: Retrive DataStores list
+      tags:
+        - DataStore
+      responses:
+        '200':
+          description: An array of founded DataStore with VirtualMachines
+          schema:
+            $ref: '#/definitions/DataStores'
+        '403':
+          description: Permission denied
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: DataStores where not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /dataStores/withHostsAndVirtualMachines:
+    get:
+      summary: Retrive DataStores list with Hosts and VirtualMachines
+      tags:
+        - DataStore
+      responses:
+        '200':
+          description: An array of founded DataStore
+          schema:
+            $ref: '#/definitions/DataStores'
+        '403':
+          description: Permission denied
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: DataStores where not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /dataStores/{dataStoreName}:
+    parameters:
+      - name: dataStoreName
+        in: path
+        required: true
+        description: DataStore name
+        type: string
+    get:
+      summary: Retrive DataStore with a specified name
+      tags:
+        - DataStore
+      responses:
+        '200':
+          description: DataStore with specific name
+          schema:
+            $ref: '#/definitions/DataStores'
+        '403':
+          description: Permission denied
+          schema:
+            $ref: '#/definitions/Error'
+        '404':
+          description: DataStore was not found
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+definitions:
+  #
+  # Cluster
+  #
+  Cluster:
+    type: object
+    properties:
+      name:
+        type: string
+      numHosts:
+        type: integer
+        format: int
+      numCpuCores:
+        type: integer
+        format: int
+      numCpuThreads:
+        type: integer
+        format: short
+      totalCpu:
+        type: integer
+        format: int
+        description: MHz
+      cpuUsage:
+        type: integer
+        format: int
+        description: MHz
+      totalMemory:
+        type: integer
+        format: long
+        description: Bytes
+      memoryUsage:
+        type: integer
+        description: MB
+      capaciry:
+        type: integer
+        format: long
+        description: Bytes
+      freeSpace:
+        type: integer
+        format: long
+        description: Bytes
+      hostsList:
+        type: array
+        items:
+          $ref: '#/definitions/Host'
+      virtualMachinesList:
+        type: array
+        items:
+          $ref: '#/definitions/VirtualMachine'
+      dataStoresList:
+        type: array
+        items:
+          $ref: '#/definitions/DataStore'
+      alarmsList:
+        type: array
+        items:
+          $ref: '#/definitions/Alarm'
+    example:
+      name: Simplivity
+      numHosts: 2
+      numCpuCores: 28
+      numCpuThreads: 56
+      totalCpu: 72618
+      cpuUsage: 1012
+      totalMemory: 549019967488
+      memoryUsage: 237376
+      capacity: 28071369375744
+      freeSpace: 27204623056896
+      hostsList:
+        - 10.240.3.103
+        - 10.240.3.104
+      virtualMachinesList:
+        - OmniStackVC-10-240-3-105
+        - vOneCloud
+      dataStoresList:
+        - stor1
+        - stor2
+  Clusters:
+    type: array
+    items:
+      $ref: '#/definitions/Cluster'
+  #
+  # Host
+  #
+  Host:
+    type: object
+    properties:
+      name:
+        type: string
+        description: ip
+      fullName:
+        type: string
+      model:
+        type: string
+      morVal:
+        type: string
+        description: ManagedObjectReference
+      cpuUsage:
+        type: integer
+        description: MHz
+      cpuMHz:
+        type: integer
+        format: int
+        description: MHz of 1 Core
+      nunCpuCores:
+        type: integer
+        format: short
+      numCpuThreads:
+        type: integer
+        format: short
+      cpuModel:
+        type: string
+      memorySize:
+        type: integer
+        format: long
+        description: Capacity in Bytes
+      memoryUsage:
+        type: integer
+        description: MB
+      numNICs:
+        type: integer
+      upTime:
+        type: integer
+        description: seconds
+      capacity:
+        type: integer
+        format: long
+        description: Byte
+      freeSpace:
+        type: integer
+        format: long
+        description: Byte
+      clusterName:
+        type: string
+      virtualMachinesList:
+        type: array
+        items:
+          $ref: '#/definitions/VirtualMachine'
+      dataStores:
+        type: array
+        items:
+          $ref: '#/definitions/DataStore'
+      alarmsList:
+        type: array
+        items:
+          $ref: '#/definitions/Alarm'
+    example:
+      name: 10.240.3.103
+      fullName: VMware ESXi 6.7.0 build-13004448
+      model: ProLiant DL380 Gen10
+      morVal: host-168
+      cpuUsage: 314
+      cpuMHz: 2594
+      numCpuCores: 14
+      numCpuThreads: 28
+      cpuModel: Intel(R) Xeon(R) Gold 6132 CPU @ 2.60GHz
+      memorySize: 274509983744
+      memoryUsage: 118525
+      numNICs: 6
+      upTime: 533628
+      capacity: 27779580035072
+      freeSpace: 26927078580224
+      clusterName: Simplivity
+
+  Hosts:
+    type: array
+    items:
+      $ref: '#/definitions/Host'
+  #
+  # VirtualMachine
+  #
+  VirtualMachine:
+    type: object
+    properties:
+      name:
+        type: string
+      guestOs:
+        type: string
+      vmWareToolsRunningStatus:
+        type: string
+      vmWareToolsVersion:
+        type: string
+      dnsName:
+        type: string
+      ipAddresses:
+        type: string
+      cpuUsage:
+        type: integer
+        format: int
+      numCpu:
+        type: integer
+        format: int
+      memoryUsage:
+        type: integer
+        format: int
+      memorySize:
+        type: integer
+        format: long
+      committed:
+        type: integer
+        format: int
+      uncommitted:
+        type: integer
+        format: int
+      unshared:
+        type: integer
+        format: int
+      host:
+        $ref: '#/definitions/Host'
+      clusterName:
+        type: string
+      dataStoresList:
+        type: array
+        items:
+          $ref: '#/definitions/DataStore'
+      alarmsList:
+        type: array
+        items:
+          $ref: '#/definitions/Alarm'
+    example:
+      name: vOneCloud
+      guestOs: Red Hat Enterprise Linux 7 (64-bit)
+      vmWareToolsRunningStatus: guestToolsRunning
+      vmWareToolsVersion: 10282
+      dnsName: vcloud.corp.tatneft.ru
+      ipAddresses: 10.240.3.210
+      cpuUsage: 69
+      memoryUsage: 102
+      storageUsage: 6399688518
+
+  VirtualMachines:
+    type: array
+    items:
+      $ref: '#/definitions/VirtualMachine'
+  #
+  # DataStores
+  #
+  DataStore:
+    type: object
+    properties:
+      name:
+        type: string
+      url:
+        type: string
+      type:
+        type: string
+      capacity:
+        type: integer
+        format: long
+        description: Bytes
+      freeSpace:
+        type: integer
+        format: long
+        description: Bytes
+      clusterName:
+        type: string
+      virtualMachinesList:
+        type: array
+        items:
+          $ref: '#/definitions/VirtualMachine'
+      hostsList:
+        type: array
+        items:
+          $ref: '#/definitions/Host'
+      alarmsList:
+        type: array
+        items:
+          $ref: '#/definitions/Alarm'
+    example:
+      name: stor1
+      url: ds:///vmfs/volumes/5b976ddd-4e695ac8/
+      type: NFS
+      capacity: 5497558138880
+      freeSpace: 4919571382272
+  DataStores:
+    type: array
+    items:
+      $ref: '#/definitions/DataStore'
+
+  #
+  # Alarm
+  #
+  Alarm:
+    type: object
+    properties:
+      overallStatus:
+        type: string
+      entity:
+        type: string
+        description: Cluster, Host, VirtualMachine or DataStore name
+      time:
+        type: string
+        format: calendar
+    example:
+      overallStatus: red
+      entity: OmniStackVC-10-240-3-105
+      time: 2019-07-31T04:30:46.555+0000
+
+  #
+  # Errors
+  #
+  Error:
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int
+      message:
+        type: string
